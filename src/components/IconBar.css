@@ -1,6 +1,6 @@
 .icon-bar {
   display: flex;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   background-color: #555; /* Dark-grey background */
 }
 
@@ -17,7 +17,7 @@
 }
 
 .icon .active {
-  background-color: #a0948950; /* Add an active/current color */
+  background-color: #a0948950;
 }
 
 .icon {

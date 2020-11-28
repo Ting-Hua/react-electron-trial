@@ -1,0 +1,3 @@
+- IconBar
+[] give id and key to <Icon/> automatically?
+[] bind useEffect with iconStates

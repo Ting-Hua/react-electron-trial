@@ -1,6 +1,7 @@
 {
   "name": "log-viewer",
   "version": "0.1.0",
+  "license": "UNLICENSED",
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
@@ -12,6 +13,7 @@
     "electron-is-dev": "^1.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.1.0",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
   },

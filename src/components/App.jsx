@@ -1,5 +1,6 @@
 import "./App.css";
 import IconBar from "./IconBar";
+import ListView from "./ListView";
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
       <header className="App-header">
         <IconBar />
       </header>
+      {/* <ListView /> */}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { BsFileText, BsBookmarks, BsInfoCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import "./IconBar.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Icon(props) {
   return (
@@ -28,52 +28,38 @@ function Icon(props) {
 }
 
 function IconBar() {
-  const [icons, setIcons] = useState([]);
-  const [iconStates, setIconStates] = useState(["active", "", ""]);
+  const [icons, setIcons] = useState([
+    { id: 0, src: <BsFileText />, state: "active" },
+    { id: 1, src: <BsBookmarks />, state: "" },
+    { id: 2, src: <BsInfoCircle />, state: "" },
+  ]);
 
-  //init
-  // eslint-disable-next-line
-  useEffect(() => {
-    const handleIconClicked = (clickedIconId) => {
-      let states = iconStates;
-      states.fill("");
-      states[clickedIconId] = "active";
-      setIconStates(states);
-    };
+  let handleIconClicked = (clickedIconId) => {
+    setIcons((temp_icons) => {
+      temp_icons
+        .filter((icon) => icon.state === "active")
+        .map((icon) => (icon.state = ""));
+      temp_icons
+        .filter((icon) => icon.id === clickedIconId)
+        .map((icon) => (icon.state = "active"));
+      return [...temp_icons]; // return new array to apply the changes
+    });
+    console.log("new icons:" + icons.map((icon) => icon.state));
+  };
 
-    const fileIcon = (
-      <Icon
-        key={0}
-        id={0}
-        src={<BsFileText />}
-        state={iconStates[0]}
-        onClick={handleIconClicked}
-      />
-    );
-
-    const bookmarkIcon = (
-      <Icon
-        key={1}
-        id={1}
-        src={<BsBookmarks />}
-        state={iconStates[1]}
-        onClick={handleIconClicked}
-      />
-    );
-
-    const infoIcon = (
-      <Icon
-        key={2}
-        id={2}
-        src={<BsInfoCircle />}
-        state={iconStates[2]}
-        onClick={handleIconClicked}
-      />
-    );
-    setIcons([fileIcon, bookmarkIcon, infoIcon]);
-  });
-
-  return <div className="icon-bar">{icons}</div>;
+  return (
+    <div className="icon-bar">
+      {icons.map((icon) => (
+        <Icon
+          key={icon.id}
+          id={icon.id}
+          src={icon.src}
+          state={icon.state}
+          onClick={handleIconClicked}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default IconBar;

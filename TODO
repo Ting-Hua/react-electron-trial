@@ -1,3 +1,5 @@
 - IconBar
 [] give id and key to <Icon/> automatically?
-[] bind useEffect with iconStates
+[x] bind useEffect with iconStates
+[] distribution product does not work
+[] let user select files

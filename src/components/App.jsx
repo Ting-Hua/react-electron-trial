@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import IconBar from "./IconBar";
-import ListView from "./ListView";
+import MainView from "./MainView";
 import Bookmarks from "./Bookmarks";
 import About from "./About";
 
@@ -12,10 +12,10 @@ function App() {
     { id: 2, icon: "Info", state: "" },
   ]);
 
-  const listView = <ListView />;
+  const mainView = <MainView />;
   const bookmarkView = <Bookmarks />;
   const aboutView = <About />;
-  const [body, setBody] = useState(listView);
+  const [body, setBody] = useState(mainView);
 
   const handleStateChanged = (btnId) => {
     setItems((temp_items) => {
@@ -30,7 +30,7 @@ function App() {
     console.log("new states:" + items.map((item) => item.state));
 
     if (btnId === 0) {
-      setBody(listView);
+      setBody(mainView);
     } else if (btnId === 1) {
       setBody(bookmarkView);
     } else {

@@ -1,7 +1,8 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
+const fs = require("fs");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -13,7 +14,8 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      // preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
     },
   });
 
@@ -24,9 +26,9 @@ function createWindow() {
   );
 
   // Open the DevTools.
-  //   if (isDev) {
-  //     mainWindow.webContents.openDevTools();
-  //   }
+  // if (isDev) {
+  //   mainWindow.webContents.openDevTools();
+  // }
 
   // Emitted when the window is closed.
   mainWindow.on("closed", function () {
@@ -61,3 +63,40 @@ app.on("activate", function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+function read(filename) {
+  let output = [];
+  if (fs.existsSync(filename)) {
+    let data = fs.readFileSync(filename, "utf8").split("\n");
+
+    data.forEach((line, index) => {
+      const splitter = line.indexOf(":", "03/22 08:54:35".length);
+      const part1 = line.substring(0, splitter);
+      const part2 = line.substring(splitter + 1, line.length - splitter + 1);
+      const time = part1.substring(0, "03/22 08 54:35".length);
+      const type = part1.substring(time.length + 1).trim();
+      let level = "info";
+      if (type == "WARNING") {
+        console.log(line);
+        console.log(part2);
+        level = "warning";
+      } else if (type == "ERROR") {
+        level = "error";
+      }
+
+      output.push({ id: index, time: time, content: part2, debuglevel: level });
+    });
+  } else {
+    console.log("File Doesn't Exist.");
+  }
+
+  return output;
+}
+
+ipcMain.once("file-openning", (event, path) => {
+  data = read(path);
+  if (data.length > 0) {
+    console.log("fire file-read event");
+    event.reply("file-read", data);
+  }
+});

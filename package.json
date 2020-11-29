@@ -22,7 +22,7 @@
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
     "electron-start": "electron .",
-    "start-dev": "concurrently \"BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "start-dev": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-build": "electron-builder",
     "release": "yarn react-build && electron-builder --publish=always",
     "build": "yarn react-build && yarn electron-build"
@@ -60,8 +60,10 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "electron": "^11.0.3",
     "electron-builder": "^22.9.1",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "wait-on": "^5.2.0"
   }
 }

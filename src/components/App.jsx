@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <IconBar />
       </header>
-      {/* <ListView /> */}
+      <ListView />
     </div>
   );
 }

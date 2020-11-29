@@ -4,8 +4,8 @@ import { useState } from "react";
 function ListItem(props) {
   return (
     <div className={`list-item ${props.dbglevel}`}>
-      <div className="list-item-timestamp">props.time</div>
-      <div className="list-item-content">props.content</div>
+      <div className="list-item-timestamp">{props.time}</div>
+      <div className="list-item-content">{props.content}</div>
     </div>
   );
 }
@@ -22,13 +22,13 @@ function ListView() {
     {
       id: 2,
       time: "2020-11-29 11:00:01",
-      content: "this is a test.",
+      content: "this is a test2.",
       debuglevel: "warning",
     },
     {
       id: 3,
       time: "2020-11-29 11:00:02",
-      content: "this is a test.",
+      content: "this is a test3.",
       debuglevel: "error",
     },
   ]);

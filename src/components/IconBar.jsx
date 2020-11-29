@@ -1,7 +1,6 @@
 import { BsFileText, BsBookmarks, BsInfoCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import "./IconBar.css";
-import { useState } from "react";
 
 function Icon(props) {
   return (
@@ -27,35 +26,26 @@ function Icon(props) {
   );
 }
 
-function IconBar() {
-  const [icons, setIcons] = useState([
-    { id: 0, src: <BsFileText />, state: "active" },
-    { id: 1, src: <BsBookmarks />, state: "" },
-    { id: 2, src: <BsInfoCircle />, state: "" },
-  ]);
-
-  let handleIconClicked = (clickedIconId) => {
-    setIcons((temp_icons) => {
-      temp_icons
-        .filter((icon) => icon.state === "active")
-        .map((icon) => (icon.state = ""));
-      temp_icons
-        .filter((icon) => icon.id === clickedIconId)
-        .map((icon) => (icon.state = "active"));
-      return [...temp_icons]; // return new array to apply the changes
-    });
-    console.log("new icons:" + icons.map((icon) => icon.state));
+function IconBar(props) {
+  const getSrc = (iconName) => {
+    if (iconName === "File") {
+      return <BsFileText />;
+    } else if (iconName === "Bookmarks") {
+      return <BsBookmarks />;
+    } else {
+      return <BsInfoCircle />;
+    }
   };
 
   return (
     <div className="icon-bar">
-      {icons.map((icon) => (
+      {props.items.map((item) => (
         <Icon
-          key={icon.id}
-          id={icon.id}
-          src={icon.src}
-          state={icon.state}
-          onClick={handleIconClicked}
+          key={item.id}
+          id={item.id}
+          src={getSrc(item.icon)}
+          state={item.state}
+          onClick={props.onClick}
         />
       ))}
     </div>
